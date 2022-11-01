@@ -40,12 +40,12 @@ mlp_dim: 512
 latent_dim: 50
 
 # wandb (insert your own)
-use_wandb: false
-wandb_project: none
-wandb_entity: none
+use_wandb: true
+wandb_project: MLRC_RL
+wandb_entity: animeshjha
 
 # misc
-seed: 1
+seed: 5
 exp_name: default
 eval_freq: 20000
 eval_episodes: 10

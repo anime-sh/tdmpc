@@ -246,10 +246,10 @@ class ReplayBuffer():
 		return obs.float()
 
 	def sample(self):
-		probs = (self._priorities if self._full else self._priorities[:self.idx]) ** self.cfg.per_alpha
+		probs = ((self._priorities if self._full else self._priorities[:self.idx]) ** self.cfg.per_alpha).nan_to_num(self._eps)
 		probs /= probs.sum()
 		total = len(probs)
-		idxs = torch.from_numpy(np.random.choice(total, self.cfg.batch_size, p=probs.cpu().numpy(), replace=not self._full)).to(self.device)
+		idxs = torch.from_numpy(np.random.choice(total, self.cfg.batch_size, p=probs.nan_to_num(0).cpu().numpy(), replace=not self._full)).to(self.device)
 		weights = (total * probs[idxs]) ** (-self.cfg.per_beta)
 		weights /= weights.max()
 
