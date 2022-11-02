@@ -16,3 +16,5 @@ dependencies:
     - wandb
     - moviepy
     - imageio
+    - setuptools==59.5.0
+    - pytorch-lightning
