@@ -43,7 +43,7 @@ latent_dim: 50
 use_wandb: true
 wandb_project: MLRC_RL
 wandb_entity: animeshjha
-wandb_exp_name: mopac-test
+wandb_method_name: mopac
 
 # misc
 seed: 5
