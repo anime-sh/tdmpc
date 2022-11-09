@@ -203,7 +203,7 @@ class MoPAC():
             pi_loss += -Q.mean() * (self.cfg.rho ** t)
 
         pi_loss.backward()
-        torch.nn.utils.clip_grad_norm_(self.model._pi.parameters(), self.cfg.grad_clip_norm, error_if_nonfinite=False)
+        torch.nn.utils.clip_grad_norm_(self.model._pi.parameters(), self.cfg.grad_clip_norm)
         self.pi_optim.step()
         self.model.track_q_grad(True)
         return pi_loss.item()
@@ -274,8 +274,7 @@ class MoPAC():
         weighted_total_loss = weighted_dyna_model_loss + env_model_loss
         weighted_total_loss.register_hook(lambda grad: grad * (1 / self.cfg.horizon))
         weighted_total_loss.backward()
-        grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.cfg.grad_clip_norm,
-                                                   error_if_nonfinite=False)
+        grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.cfg.grad_clip_norm)
         self.optim.step()
 
         pi_loss_model = self.update_pi(model_zs)

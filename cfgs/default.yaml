@@ -46,7 +46,7 @@ wandb_entity: animeshjha
 wandb_method_name: mopac
 
 # misc
-seed: 5
+seed: 17
 exp_name: default
 eval_freq: 20000
 eval_episodes: 10

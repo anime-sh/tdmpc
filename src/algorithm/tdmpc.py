@@ -163,7 +163,7 @@ class TDMPC():
 			pi_loss += -Q.mean() * (self.cfg.rho ** t)
 
 		pi_loss.backward()
-		torch.nn.utils.clip_grad_norm_(self.model._pi.parameters(), self.cfg.grad_clip_norm, error_if_nonfinite=False)
+		torch.nn.utils.clip_grad_norm_(self.model._pi.parameters(), self.cfg.grad_clip_norm)
 		self.pi_optim.step()
 		self.model.track_q_grad(True)
 		return pi_loss.item()
@@ -213,7 +213,7 @@ class TDMPC():
 		weighted_loss = (total_loss * weights).mean()
 		weighted_loss.register_hook(lambda grad: grad * (1/self.cfg.horizon))
 		weighted_loss.backward()
-		grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.cfg.grad_clip_norm, error_if_nonfinite=False)
+		grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.cfg.grad_clip_norm)
 		self.optim.step()
 		replay_buffer.update_priorities(idxs, priority_loss.clamp(max=1e4).detach())
 
