@@ -43,7 +43,7 @@ def evaluate(env, agent, num_episodes, step, env_step, video):
 	return np.nanmean(episode_rewards)
 
 
-def train(cfg):
+def train_tdmpc(cfg):
 	"""Training script for TD-MPC. Requires a CUDA-enabled device."""
 	assert torch.cuda.is_available()
 	set_seed(cfg.seed)
@@ -94,4 +94,4 @@ def train(cfg):
 
 
 if __name__ == '__main__':
-	train(parse_cfg(Path().cwd() / __CONFIG__))
+	train_tdmpc(parse_cfg(Path().cwd() / __CONFIG__))

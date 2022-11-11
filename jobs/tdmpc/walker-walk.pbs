@@ -14,4 +14,4 @@ module load anaconda3
 source activate $HOME_DIR/anaconda3/envs/tdmpc
 cd $WORK_DIR
 wandb offline
-python src/train.py task=walker-run
+python src/train.py task=walker-walk
